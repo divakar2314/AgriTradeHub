@@ -1,0 +1,153 @@
+<html th:replace="~{base::layout(~{::main})}">
+	<body>
+		<main>
+<!--===========Contact us page  start=======================-->
+			<div class ="row" 
+			style="background-image:url('images/AgriBg1.png') ;background-size:cover; background-position:center;">
+				<div class="col-sm-12 py-5 bg-dark bg-opacity-50 ">
+					<h1 class="py-3 text-center text-white fw-bold dispaly-4"> Contact Us</h1>
+				
+				</div>
+				
+			</div>
+			
+			<!-- PGI Virtual Care Contact Section -->
+						
+						<div class="row">
+							<div class="col-sm-12 p-0 " style="background-color:whitesmoke;">
+								
+						
+						<div class="container py-5 my-5">
+						  <div class="text-center mb-5 text-white">
+						    
+						    <h4 class="text-muted fw-bold ">We'd love to hear from you. Reach us using any of the methods below.</h4>
+						  </div>
+
+						  <!-- Contact Info Cards -->
+						  <div class="row g-4 mb-5">
+						    <div class="col-md-3">
+						      <div class="card border-0 shadow rounded-3 h-100">
+						        <div class="card-body text-center">
+						          <i class="fa-solid fa-phone fa-2x text-primary mb-3"></i>
+						          <h5 class="card-title">Call Us</h5>
+						          <p class="card-text mb-0">Manager: +91 98765 43210</p>
+						          <p class="card-text">Support: +91 63065 38167</p>
+						        </div>
+						      </div>
+						    </div>
+
+						    <div class="col-md-3">
+						      <div class="card border-0 shadow rounded-3 h-100">
+						        <div class="card-body text-center">
+						          <i class="fa-solid fa-envelope fa-2x text-primary mb-3"></i>
+						          <h5 class="card-title">Email</h5>
+						          <p class="card-text mb-0">Manager: manager@pgi.com</p>
+						          <p class="card-text">Support: support@pgi.com</p>
+						        </div>
+						      </div>
+						    </div>
+
+						    <div class="col-md-3">
+						      <div class="card border-0 shadow rounded-3 h-100">
+						        <div class="card-body text-center">
+						          <i class="fa-brands fa-whatsapp fa-2x  text-primary fw-bold mb-3"></i>
+						          <h5 class="card-title">WhatsApp</h5>
+						          <p class="card-text">+91 99887 76655</p>
+						        </div>
+						      </div>
+						    </div>
+
+						    <div class="col-md-3">
+						      <div class="card border-0 shadow rounded-3 h-100">
+						        <div class="card-body text-center">
+						          <i class="fa-solid fa-location-dot fa-2x text-primary mb-3"></i>
+						          <h5 class="card-title">Visit Us</h5>
+						          <p class="card-text">\tSanjay Gandhi Postgraduate Institute of Medical Sciences
+								  New PMSSY Rd, Raibareli Rd, Lucknow, Uttar Pradesh 226014</p>
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+
+						  <!-- send message start-->
+						  <div class="row  mt-5">
+						  <div class="col-sm-11 mx-auto my-5 bg-light">
+						  <div class="row">
+							<div class="col-sm-6">
+								<!--form start-->
+								<h4 class="mb-3" style="color: #23d6da;">Send Us a Message</h4>
+								      <form method="post" th:object="${enquiry}" class="bg-light p-4 rounded shadow">
+								        <div class="row">
+								          <div class="col-sm-12 mb-3">
+								            <label>Enter Your Name</label>
+								            <input type="text" th:field="${enquiry.name}" class="form-control" placeholder="Enter Your Name" required>
+								          </div>
+								          <div class="col-sm-12 mb-3">
+								            <label>Select your Gender</label>
+								            <select th:field="${enquiry.gender}" class="form-control">
+								              <option value="Male">Male</option>
+								              <option value="Female">Female</option>
+								              <option value="Other">Other</option>
+								            </select>
+								          </div>
+								          <div class="col-sm-12 mb-3">
+								            <label>Enter Contact Number</label>
+								            <input type="number" th:field="${enquiry.contactNo}" class="form-control" placeholder="Enter your Number" required>
+								          </div>
+								          <div class="col-sm-12 mb-3">
+								            <label>Enter Your Email</label>
+								            <input type="email" th:field="${enquiry.email}" class="form-control" placeholder="Enter your Email" required>
+								          </div>
+								          <div class="col-sm-12 mb-3">
+								            <label>Enter Enquiry Subject</label>
+								            <input type="text" th:field="${enquiry.subject}" class="form-control" placeholder="Enter Enquiry Subject" required>
+								          </div>
+								          <div class="col-sm-12 mb-3">
+								            <label>Enquiry Message</label>
+								            <textarea rows="3" class="form-control" th:field="${enquiry.message}" placeholder="Enter your message" required></textarea>
+								          </div>
+										  
+										<div class="col-sm-12 mb-3">
+											<label>Select your Role</label>
+											<select th:field="${enquiry.role}" class="form-control">
+												
+												<option value="Farmer">Farmer</option>
+												<option value="Merchant">Merchant</option>
+											</select>
+										</div>
+								          <div class="col-sm-12 text-center">
+								            <button type="submit" class="btn btn-primary">Submit</button>
+								          </div>
+								        </div>
+								      </form>					
+							<!-- form end-->
+							</div>
+							<div class="col-md-6 ">
+								<h4 class="mb-3" style="color: #23d6da;">Find Us on Map</h4>
+									<div>
+										<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3563.0146534512915!2d80.94465017521824!3d26.743908476748206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd5d4012a1a5%3A0xa1fc3e64182cf30!2sSanjay%20Gandhi%20Post%20Graduation%20Institute%20%26%20Hospital!5e0!3m2!1sen!2sin!4v1753894830360!5m2!1sen!2sin" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+								    </div>
+							</div>
+						  </div>
+						</div>
+						</div>
+						</div>
+						</div>
+								</div>
+			<!--===========Contact us  section end=========================-->	
+			
+			<input type="text" id="msg" th:if="${msg}" th:value="${msg}">
+					
+					<script type="text/javascript">
+						
+						var msg = document.getElementById("msg");
+						if(msg.value!="")
+						{
+							alert(msg.value);
+						}
+					</script>
+					
+		</main>
+	</body>
+	
+</html>

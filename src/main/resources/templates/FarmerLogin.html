@@ -1,0 +1,127 @@
+<html th:replace="~{base::layout(~{::main})}">
+<body>
+	<main>
+		<!--=========== Farmer Login Start =======================-->
+		<div class="row" 
+		     style="background-image:url('images/Farmer1.jpg'); background-size:cover; background-position:center; min-height:100vh;">
+		    
+		    <!-- Dark overlay for better contrast -->
+		    <div class="col-sm-12 d-flex flex-column align-items-center justify-content-center py-5" 
+		         style="background:rgba(0,0,0,0.6);">
+		        
+		        <h1 class="py-3 text-center text-warning fw-bold display-4">Farmer Login</h1>
+
+		        <!-- ===== Fixed Login Card in Center ===== -->
+		        <div class="container d-flex justify-content-center align-items-center mt-4">
+		            <div class="col-md-6 col-sm-10">
+		                
+		                <!-- Show Alert if exists -->
+		                <div th:if="${msg}" 
+		                     class="alert alert-warning alert-dismissible fade show shadow-lg" role="alert">
+		                    <span th:text="${msg}"></span>
+		                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		                </div>
+
+		                <!-- Transparent Login Card -->
+		                <div class="card p-4 shadow-lg border-2 text-center" 
+		                     style="border-color:#ffc107; border-radius:20px; background:rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+		                    
+		                    <!-- Farmer Image in Circle -->
+		                    <div class="mb-3">
+		                        <img src="images/farmerImg.jpg" alt="Farmer" 
+		                             class="rounded-circle shadow border border-3 border-warning" 
+		                             style="width:120px; height:120px; object-fit:cover;">
+		                    </div>
+
+		                    <!-- Login Form -->
+		                    <form action="/FarmerLogin" method="post">
+		                        <!-- Email -->
+		                        <div class="form-floating mb-3">
+		                            <input type="email" name="email" class="form-control border-2 border-warning bg-transparent text-white" 
+		                                   id="emailInput" placeholder="Enter User (Email)" required>
+		                            <label for="emailInput" class="text-warning fw-bold">Enter Username (Email)</label>
+		                        </div>
+
+		                        <!-- Password -->
+		                        <div class="form-floating mb-3 position-relative">
+		                            <input type="password" name="password" id="patientPassword" 
+		                                   class="form-control border-2 border-warning bg-transparent text-white" 
+		                                   placeholder="Password" required>
+		                            <label for="farmerPassword" class="text-warning fw-bold">Enter Password</label>
+		                            
+		                            <!-- Eye Icon -->
+		                            <span class="position-absolute top-50 end-0 translate-middle-y me-2 text-warning" 
+		                                  style="cursor:pointer;" onclick="togglePatientPassword()">
+		                                <i class="bi bi-eye-fill" id="patientEyeIcon"></i>
+		                            </span>
+		                        </div>
+
+		                        <!-- Links -->
+		                        <div class="d-flex justify-content-between mb-3 small">
+		                            <a href="#" data-bs-toggle="modal" data-bs-target="#forgotModal" class="text-info">Forgot Password?</a>
+		                            <span class="text-light">
+		                                Don’t have an account? 
+		                                <a href="/Registration" class="text-success fw-bold">Create an Account</a>
+		                            </span>
+		                        </div>
+
+		                        <!-- Button -->
+		                        <div class="text-center">
+		                            <button type="submit" class="btn px-5 py-2 fw-bold shadow" 
+		                                    style="background:#ffc107; color:black; border-radius:30px; transition:0.3s;"
+		                                    onmouseover="this.style.background='#e0a800'" 
+		                                    onmouseout="this.style.background='#ffc107'">
+		                                Login
+		                            </button>
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		        </div>
+		        <!-- ===== End Login Card ===== -->
+		    </div>
+		</div>
+		<!--=========== Farmer Login End =========================-->
+
+		<!-- Forgot Password Modal -->
+		<div class="modal fade" id="forgotModal" tabindex="-1" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content p-3 rounded-4 shadow-lg">
+		      <div class="modal-header bg-warning bg-opacity-75 rounded-3">
+		        <h5 class="modal-title fw-bold text-dark">Recover Password</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		      </div>
+		      <div class="modal-body">
+		        <form action="/RecoverPassword" method="post">
+		          <div class="form-floating mb-3">
+		            <input type="email" name="recoverEmail" class="form-control" id="recoverEmail" placeholder="Enter your email" required>
+		            <label for="recoverEmail">Registered Email</label>
+		          </div>
+		          <div class="form-floating mb-3">
+		            <input type="date" name="dob" class="form-control" id="dobInput" placeholder="Enter your Date of Birth" required>
+		            <label for="dobInput">Date of Birth</label>
+		          </div>
+		          <button type="submit" class="btn btn-success w-100 fw-bold">Recover Password</button>
+		        </form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- Password Eye Toggle -->
+		<script>
+		    function togglePatientPassword() {
+		        const password = document.getElementById("patientPassword");
+		        const icon = document.getElementById("patientEyeIcon");
+		        if (password.type === "password") {
+		            password.type = "text";
+		            icon.classList.replace("bi-eye-fill", "bi-eye-slash-fill");
+		        } else {
+		            password.type = "password";
+		            icon.classList.replace("bi-eye-slash-fill", "bi-eye-fill");
+		        }
+		    }
+		</script>
+	</main>
+</body>
+</html>

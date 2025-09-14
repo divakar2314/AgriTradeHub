@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{Admin/Adminbase::layout(~{::main})}">
+<main>
+  <div class="row">
+    <div class="col-sm-10 mx-auto">
+      <div class="card shadow mt-4">
+        <div class="card-header bg-primary text-white">
+          <h4 class="m-0">Admin Profile</h4>
+        </div>
+        <div class="card-body">
+
+          <!-- Admin avatar -->
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img id="adminAvatar"
+                 th:if="${session.loggedInAdmin != null and session.loggedInAdmin.profilePic != null}"
+                 th:src="@{'/profile-pic/' + ${session.loggedInAdmin.id}}"
+                 alt="Admin Avatar" width="120" height="120" class="rounded-circle border">
+            <img id="adminAvatarDefault"
+                 th:if="${session.loggedInAdmin == null or session.loggedInAdmin.profilePic == null}"
+                 th:src="@{/img/user_img.jpg}"
+                 alt="Default Avatar" width="120" height="120" class="rounded-circle border">
+          </div>
+
+          <!-- Upload (AJAX) -->
+          <form id="avatarUploadForm" enctype="multipart/form-data" class="d-flex gap-2">
+            <input type="file" name="file" id="avatarFile" accept="image/*" class="form-control" required>
+            <button type="submit" class="btn btn-success">Upload</button>
+          </form>
+
+          <!-- expose admin id to JS -->
+          <input type="hidden" id="adminId" th:value="${session.loggedInAdmin != null ? session.loggedInAdmin.id : 0}">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // vanilla JS AJAX (fetch)
+    const form = document.getElementById('avatarUploadForm');
+    const fileInput = document.getElementById('avatarFile');
+    const img = document.getElementById('adminAvatar') || document.getElementById('adminAvatarDefault');
+    const adminId = document.getElementById('adminId').value;
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      if (!fileInput.files.length) return;
+
+      const fd = new FormData();
+      fd.append('file', fileInput.files[0]);
+
+      const res = await fetch('/Admin/uploadProfilePic', {
+        method: 'POST',
+        body: fd
+      });
+
+      const text = await res.text();
+      if (res.ok && text.startsWith('/profile-pic/')) {
+        // swap to the returned URL (already has cache-busting timestamp)
+        img.src = text;
+        alert('Profile picture updated!');
+      } else {
+        alert('Upload failed: ' + text);
+      }
+    });
+  </script>
+</main>
+</html>

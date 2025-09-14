@@ -1,0 +1,135 @@
+<html th:replace="~{base::layout(~{::main})}">
+
+<body>
+	<main>
+		<!--===========Registration page  start=======================-->
+		<div class="row"
+			style="background-image:url('images/AgriBg1.png');background-size:cover; background-position:center;">
+			<div class="col-sm-12 py-5 bg-dark bg-opacity-50">
+				<h1 class="py-3 text-center text-white fw-bold display-4"> Merchant Registration</h1>
+			</div>
+		</div>
+
+		<!-- registration-->
+		<div class="row py-5">
+			<div class="col-sm-9 mx-auto shadow py-4 px-5 bg-success rounded-4">
+				<input type="hidden" id="msg" th:if="${msg}" th:value="${msg}">
+
+				<!-- Alert if merchant already exists -->
+				<div th:if="${error}" class="alert alert-danger text-center">
+					<p th:text="${error}"></p>
+					<a href="/login" class="btn btn-primary btn-sm">Go to Login</a>
+				</div>
+
+				<!-- form start-->
+				<form id="merchantForm" method="post" th:object="${userDto}" onsubmit="return validateForm()">
+					<div class="row">
+
+						<div class="col-sm-6 mb-4">
+							<label class="fw-bold">Enter Your Name</label>
+							<input th:field="*{name}" type="text" placeholder="Merchant Name" class="form-control"
+								required>
+						</div>
+
+						<div class="col-sm-6 mb-4">
+							<label class="fw-bold">Enter Contact Number</label>
+							<input th:field="*{contactNumber}" type="text" maxlength="10" pattern="\d{10}"
+								class="form-control" placeholder="Contact Number" required>
+						</div>
+
+						<div class="col-sm-6 mb-4">
+							<label class="fw-bold">Enter Aadhar No.</label>
+							<input th:field="*{aadharNumber}" type="text" maxlength="12" pattern="\d{12}"
+								class="form-control" placeholder="Enter Your Aadhar" required>
+						</div>
+
+						<div class="col-sm-6 mb-4">
+							<label class="fw-bold">Enter Your Email</label>
+							<input th:field="*{email}" type="email" class="form-control" placeholder="Enter Your Email"
+								required>
+						</div>
+
+
+
+						<div class="col-sm-6 mb-4">
+							<label class="fw-bold">Enter Address</label>
+							<textarea th:field="*{address}" rows="1" class="form-control" placeholder="Enter Address"
+								required></textarea>
+						</div>
+
+						<div class="col-sm-6 mb-4">
+							<label class="fw-bold">Enter Your PAN Number</label>
+							<input th:field="*{panCard}" type="text" class="form-control"
+								placeholder="Enter Your PAN No" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" required>
+						</div>
+
+						<div class="col-sm-6 mb-4">
+							<label class="fw-bold">Enter Password</label>
+							<input th:field="*{password}" id="password" type="password" class="form-control"
+								placeholder="Enter Password" required onkeyup="checkPasswordStrength()">
+							<small id="passwordStrength" class="fw-bold"></small>
+						</div>
+
+						<div class="col-sm-6 mb-4">
+							<label class="fw-bold">Confirm Password</label>
+							<input id="confirmPassword" type="password" class="form-control"
+								placeholder="Confirm Password" required>
+							<small id="confirmMessage" class="fw-bold text-danger"></small>
+						</div>
+
+						<div class="col-sm-12 text-center">
+							<button type="submit" class="btn btn-primary px-5">Register</button>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+		</div>
+		<!--===========Registration page end=========================-->
+
+		<script type="text/javascript">
+			// Show success or error message
+			var msg = document.getElementById("msg");
+			if (msg && msg.value != "") {
+				alert(msg.value);
+			}
+
+			// Password Strength Check
+			function checkPasswordStrength() {
+				var password = document.getElementById("password").value;
+				var strengthText = document.getElementById("passwordStrength");
+				var strength = "Weak";
+				var color = "red";
+
+				if (password.length > 5 && /[A-Za-z]/.test(password) && /\d/.test(password)) {
+					strength = "Medium";
+					color = "orange";
+				}
+				if (password.length > 8 && /[A-Za-z]/.test(password) && /\d/.test(password) && /[@$!%*?&]/.test(password)) {
+					strength = "Strong";
+					color = "green";
+				}
+
+				strengthText.innerHTML = "Strength: " + strength;
+				strengthText.style.color = color;
+			}
+
+			// Form Validation
+			function validateForm() {
+				var password = document.getElementById("password").value;
+				var confirmPassword = document.getElementById("confirmPassword").value;
+				var confirmMessage = document.getElementById("confirmMessage");
+
+				if (password !== confirmPassword) {
+					confirmMessage.innerHTML = "Passwords do not match!";
+					return false;
+				}
+				confirmMessage.innerHTML = "";
+				return true;
+			}
+		</script>
+	</main>
+</body>
+
+</html>

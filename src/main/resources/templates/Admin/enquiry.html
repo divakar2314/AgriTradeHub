@@ -1,0 +1,90 @@
+<html th:replace="~{Admin/Adminbase::layout(~{::main})}">
+
+<body>
+	<main>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card shadow-lg border-0">
+					
+					<!-- Header -->
+					<div class="card-header bg-info text-white text-center py-3 rounded-top">
+						<h3 class="fw-bold mb-0">Enquiry Details</h3>
+					</div>
+					
+					<!-- Body -->
+					<div class="card-body bg-light">
+						<!-- Table (Desktop) -->
+						<div class="table-responsive d-none d-md-block">
+							<table class="table table-hover table-bordered align-middle shadow-sm rounded" id="example">
+								<thead class="table-info text-dark text-center">
+									<tr>
+										<th>Sr. No</th>
+										<th>Name</th>
+										<th>Email</th>
+										<th>Contact No</th>
+										<th>Subject</th>
+										<th>Message</th>
+										<th>Date</th>
+										<!--<th>Status</th>-->
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody th:each="e, srno: ${enquiryList}" class="text-center">
+									<tr>
+										<td th:text="${srno.index+1}">#1</td>
+										<td th:text="${e.name}" class="fw-semibold text-primary">Rahul</td>
+										<td th:text="${e.email}">example@gmail.com</td>
+										<td th:text="${e.contactNo}">9876xxxx45</td>
+										<td th:text="${e.subject}">Product Query</td>
+										<td th:text="${e.message}">Sample enquiry text...</td>
+										<td th:text="${e.enquiryDate}">DD/MM/YYYY</td>
+										<!--<td>
+										
+											<a th:href="@{EnquiryStatus(id=${e.id})}#" th:if="${e.status.name()=='PENDING'}#" class="btn btn-warning btn-sm fw-bold" th:text="${e.status}"></a>
+											<a th:href="@{EnquiryStatus(id=${e.id})}#" th:if="${e.status.name()=='RESOLVED'}#" class="btn btn-success btn-sm fw-bold" th:text="${e.status}"></a>
+											<a th:href="@{EnquiryStatus(id=${e.id})}#" th:if="${e.status.name()=='CLOSED'}#" class="btn btn-danger btn-sm fw-bold" th:text="${e.status}"></a>
+											</td>-->
+										<td>
+											<a href="#" class="btn btn-outline-primary btn-sm">Reply</a>
+											<a th:href="@{DeleteEnquiry(id=${e.id})}" onclick="return confirm('Delete this enquiry?')" class="btn btn-outline-danger btn-sm">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<!-- Card Layout (Mobile) -->
+						<div class="d-block d-md-none">
+							<div th:each="e, srno: ${enquiryList}" class="card mb-3 shadow-sm border-0">
+								<div class="card-body p-3">
+									<h5 class="text-info fw-bold mb-1" th:text="${e.name}">Rahul</h5>
+									<small class="d-block mb-2 text-muted" th:text="${e.email}">example@gmail.com</small>
+									
+									<p class="mb-1"><strong>Contact:</strong> <span th:text="${e.contactNo}">9876xxxx45</span></p>
+									<p class="mb-1"><strong>Subject:</strong> <span th:text="${e.subject}">Product Query</span></p>
+									<p class="mb-1"><strong>Message:</strong> <span th:text="${e.message}">Sample enquiry text...</span></p>
+									<p class="mb-2"><strong>Date:</strong> <span th:text="${e.enquiryDate}">DD/MM/YYYY</span></p>
+									
+									<div class="d-flex justify-content-between">
+										<!--<div>
+											<a th:href="@{EnquiryStatus(id=${e.id})}" th:if="${e.status.name()=='PENDING'}" class="btn btn-warning btn-sm fw-bold" th:text="${e.status}"></a>
+											<a th:href="@{EnquiryStatus(id=${e.id})}" th:if="${e.status.name()=='RESOLVED'}" class="btn btn-success btn-sm fw-bold" th:text="${e.status}"></a>
+											<a th:href="@{EnquiryStatus(id=${e.id})}" th:if="${e.status.name()=='CLOSED'}" class="btn btn-danger btn-sm fw-bold" th:text="${e.status}"></a>
+										</div>-->
+										<div>
+											<a href="#" class="btn btn-outline-primary btn-sm">Reply</a>
+											<a th:href="@{DeleteEnquiry(id=${e.id})}" onclick="return confirm('Delete this enquiry?')" class="btn btn-outline-danger btn-sm">Delete</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>					
+				</div>
+			</div>
+		</div>
+	</main>
+
+</body>
+</html>

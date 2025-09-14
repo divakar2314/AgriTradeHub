@@ -1,0 +1,126 @@
+<html th:replace="~{base::layout(~{::main})}">
+
+<body>
+	<main>
+		<!--===========Merchant Login Start=======================-->
+		<div class="row"
+			style="background-image:url('images/Merchant.jpg'); background-size:cover; background-position:center; min-height:100vh;">
+
+			<!-- Dark overlay for better contrast -->
+			<div class="col-sm-12 d-flex flex-column align-items-center justify-content-center py-2"
+				style="background:rgba(0,0,0,0.6);">
+				<h1 class="pt-4 text-center text-white fw-bold display-4">Merchant Login</h1>
+
+				<!-- ===== Fixed Login Card in Center ===== -->
+				<div class="container d-flex justify-content-center align-items-center mt-5">
+					<div class="col-md-6 col-sm-10">
+
+						<div th:if="${msg}" class="alert alert-warning alert-dismissible fade show" role="alert">
+							<span th:text="${msg}"></span>
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+
+						<!-- Combined Image + Login Form Card -->
+						<div class="card p-4 shadow border-2 text-center"
+							style="border-color:#23d6da; border-radius:15px; background:transparent;">
+
+
+
+							<!-- Login Form -->
+							<form action="/MerchantLogin" method="post">
+								<!-- Email with floating label -->
+
+								<div class="form-floating mb-3">
+									<input type="email" name="email"
+										class="form-control border-2 border-warning bg-transparent text-white"
+										id="emailInput" placeholder="Enter User (Email)" required>
+									<label for="emailInput" class="text-white fw-bold">Enter Username (Email)</label>
+								</div>
+
+								<!-- Password with floating label -->
+								<div class="form-floating mb-3 position-relative">
+									<input type="password" name="password" id="merchantPassword"
+										class="form-control border-2 border-warning bg-transparent text-white"
+										placeholder="Password" required>
+									<label for="merchantPassword" class="text-white fw-bold">Enter Password</label>
+
+									<!-- Eye Icon inside input -->
+									<span class="position-absolute top-50 end-0 translate-middle-y me-2 text-warning"
+										style="cursor:pointer;" onclick="toggleMerchantPassword()">
+										<i class="bi bi-eye-fill" id="merchantEyeIcon"></i>
+									</span>
+								</div>
+
+								<!-- Forgot Password & Create Account Links -->
+								<div class="d-flex justify-content-between mb-3">
+									<a href="#" data-bs-toggle="modal" data-bs-target="#forgotMerchantModal"
+										class="text-info">Forgot Password?</a>
+									<span class="text-white">
+										Don’t have an account?
+										<a href="/MerchantRegistration" class="text-info fw-bold">Create an Account</a>
+									</span>
+								</div>
+
+								<div class="text-center">
+									<button type="submit" class="btn px-5 bg-info text-white fw-bold">Login</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- ===== End Fixed Login Card ===== -->
+			</div>
+		</div>
+		<!--===========Merchant Login End=========================-->
+
+		<!-- Forgot Password Modal -->
+		<div class="modal fade" id="forgotMerchantModal" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content p-3">
+					<div class="modal-header">
+						<h5 class="modal-title">Recover Password</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+					<div class="modal-body">
+						<form action="/MerchantRecoverPassword" method="post">
+							<!-- Email with floating label -->
+							<div class="form-floating mb-3">
+								<input type="email" name="recoverEmail" class="form-control" id="merchantRecoverEmail"
+									placeholder="Enter your email" required>
+								<label for="merchantRecoverEmail">Registered Email</label>
+							</div>
+
+							<!-- Date of Birth with floating label -->
+							<div class="form-floating mb-3">
+								<input type="date" name="dob" class="form-control" id="merchantDob"
+									placeholder="Enter your Date of Birth" required>
+								<label for="merchantDob">Date of Birth</label>
+							</div>
+
+							<button type="submit" class="btn btn-info w-100">Recover Password</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Password Eye Toggle Script -->
+		<script>
+			function toggleMerchantPassword() {
+				const password = document.getElementById("merchantPassword");
+				const icon = document.getElementById("merchantEyeIcon");
+				if (password.type === "password") {
+					password.type = "text";
+					icon.classList.remove("bi-eye-fill");
+					icon.classList.add("bi-eye-slash-fill");
+				} else {
+					password.type = "password";
+					icon.classList.remove("bi-eye-slash-fill");
+					icon.classList.add("bi-eye-fill");
+				}
+			}
+		</script>
+	</main>
+</body>
+
+</html>
